@@ -1,0 +1,38 @@
+name: Git Clone, Unzip, Install, and Run
+
+on:
+  push:
+    branches:
+      - main  # Jalankan setiap ada push di branch 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Clone the target repository
+    - name: Clone BG repository
+      run: |
+        git clone https://github.com/Zet65/BG.git
+
+    # Step 2: Navigate into the BG directory
+    - name: Change directory to BG
+      run: cd BG
+
+    # Step 3: Unzip BG.zip file inside the BG folder
+    - name: Unzip BG.zip
+      run: |
+        sudo apt-get install unzip  # Install unzip tool if not already installed
+        unzip BG/BG.zip -d ./BG # Unzip BG.zip in the BG directory
+
+    # Step 4: Install npm dependencies
+    - name: Install npm dependencies
+      run: |
+        cd BG
+        npm install
+
+    # Step 5: Start the npm application
+    - name: Start the application
+      run: |
+        cd BG
+        npm start
